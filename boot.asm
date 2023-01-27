@@ -1,0 +1,6 @@
+JMP start
+.start
+LD R1 65
+LD R2 101
+ADD R1 R2
+HALT
