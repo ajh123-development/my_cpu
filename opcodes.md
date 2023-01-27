@@ -1,15 +1,71 @@
-# Memory Adress
-An 8
+# My CPU
 
-# Registers
-A number in the range of 0-7 with the prefix 'R'.
+## Data
+
+### Memory Adress
+An 16 bit address for a location in memory. This uses the the "data" area of an [instruction](#instructions)
+
+### Registers
+General purpose registers addresses are a number in the range of 0-7 with the prefix 'R'. This is in 8 bits.
+
 Example: `R7`
 
-# Opcodes
+Result: 00000111 (0x07)
 
-## LD (Load)
+## Instructions
 
-| EXAMPLE         | OPCODE | REGISTER_ADDRESS         | DATA H | DATA L                   |
+An instruction is made up of a 16 bit opcode. An 8 bit address and a 16 bit data area (normally split into an upper byte and a lower byte).
+
+You may use the [assembler](asm.py) to assemble a program for the CPU.
+
+### Load a value into a register
+
+Example: LD R1, 0xabcd
+
+Result:
+| Opcode   | Register   | Upper data   | Lower Data   |
+| -------- | ---------- | ------------ | ------------ |
+| `0x0000` | `0x01`     | `0xab`       | `0xcd`       |
+
+Combined Result: `0x000001abcd`
+
+### Load a the value of a register into another register
+
+Example: LD R1, R2
+
+Result:
+| Opcode   | Register   | Upper data   | Lower Data   |
+| -------- | ---------- | ------------ | ------------ |
+| `0x0001` | `0x01`     | `0x00`       | `0x02`       |
+
+Combined Result: `0x0001010002`
+
+### Load a the value from memory into a register
+
+Example: LD R1, $0xABCD
+
+Result:
+| Opcode   | Register   | Upper data   | Lower Data   |
+| -------- | ---------- | ------------ | ------------ |
+| `0x0002` | `0x01`     | `0x00`       | `0x02`       |
+
+Combined Result: `0x0002010002`
+
+
+
+
+
+
+
+
+
+
+
+
+
+## A simplified table for all instructions.
+
+| EXAMPLE         | OPCODE | REGISTER_ADDRESS         | DATA U | DATA L                   |
 | --------------- | ------ | ------------------------ | ------ | ------------------------ |
 | LD R1, 0xabcd   | 0x0000 | [A register](#registers) | 0xAB   | 0xCD                     |
 | LD R1, R2       | 0x0001 | [A register](#registers) | 0x00   | [A register](#registers) |
