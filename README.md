@@ -14,7 +14,14 @@ Result: 00000111 (0x07)
 
 ## Instructions
 
-An instruction is made up of a 16 bit opcode. An 8 bit address and a 16 bit data area (normally split into an upper byte and a lower byte).
+An instruction is made up of a 16 bit opcode and has two paramaters.
+
+* Paramater one (P1)
+    An 8 bit data format normaly used for a register address.
+
+* Paramater two (P2)
+    A 16 bit data format normally split into an upper byte (P2 U) and a lower byte (P2 L).
+
 
 You may use the [assembler](asm.py) to assemble a program for the CPU.
 
@@ -23,33 +30,33 @@ You may use the [assembler](asm.py) to assemble a program for the CPU.
 Example: LD R1, 0xabcd
 
 Result:
-| Opcode   | Register   | Upper data   | Lower Data   |
-| -------- | ---------- | ------------ | ------------ |
-| `0x0000` | `0x01`     | `0xab`       | `0xcd`       |
+| Opcode   | P1     | P2 U   | P2 L   |
+| -------- | ------ | ------ | ------ |
+| `0x0000` | `0x01` | `0xab` | `0xcd` |
 
 Combined Result: `0x000001abcd`
 
-### Load a the value of a register into another register
+### Load the value of a register into another register
 
 Example: LD R1, R2
 
 Result:
-| Opcode   | Register   | Upper data   | Lower Data   |
-| -------- | ---------- | ------------ | ------------ |
-| `0x0001` | `0x01`     | `0x00`       | `0x02`       |
+| Opcode   | P1     | P2 U   | P2 L   |
+| -------- | ------ | ------ | ------ |
+| `0x0001` | `0x01` | `0x00` | `0x02` |
 
 Combined Result: `0x0001010002`
 
-### Load a the value from memory into a register
+### Load the value from memory into a register
 
 Example: LD R1, $0xABCD
 
 Result:
-| Opcode   | Register   | Upper data   | Lower Data   |
-| -------- | ---------- | ------------ | ------------ |
-| `0x0002` | `0x01`     | `0x00`       | `0x02`       |
+| Opcode   | P1     | P2 U   | P2 L   |
+| -------- | ------ | ------ | ------ |
+| `0x0002` | `0x01` | `0xab` | `0xcd` |
 
-Combined Result: `0x0002010002`
+Combined Result: `0x000201abcd`
 
 
 
@@ -65,7 +72,7 @@ Combined Result: `0x0002010002`
 
 ## A simplified table for all instructions.
 
-| EXAMPLE         | OPCODE | REGISTER_ADDRESS         | DATA U | DATA L                   |
+| EXAMPLE         | OPCODE | P1                       | P2 U   | P2 L                     |
 | --------------- | ------ | ------------------------ | ------ | ------------------------ |
 | LD R1, 0xabcd   | 0x0000 | [A register](#registers) | 0xAB   | 0xCD                     |
 | LD R1, R2       | 0x0001 | [A register](#registers) | 0x00   | [A register](#registers) |
