@@ -15,8 +15,8 @@ def parselabels(fn):
 				continue
 
 			if line[0]=='.':
-				labels[line[1:]] = linenum*4
-				print("Label: " + line[1:] + " @ " + format(linenum*4, '#04x'))
+				labels[line[1:]] = linenum
+				print("Label: " + line[1:] + " @ " + format(linenum, '#04x'))
 			else:
 				linenum = linenum + 1
 
